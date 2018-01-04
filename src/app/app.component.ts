@@ -8,6 +8,9 @@ import {DataService} from './shared/data.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+
+  public headerTitle = 'Welcome to the Cryptocurrencies Shop!';
+
   public products: Array<Product>;
 
   constructor(private _dataService: DataService) {
@@ -21,8 +24,14 @@ export class AppComponent {
     this.products = this._dataService.getProducts();
   }
 
-  removeList() {
-   this._dataService.removeProducts();
+  orderData(field: string) {
+    if (this.products) {
+      this.products = this.products.sort(function(a, b) {
+        if(a[field] < b[field]) return -1;
+        if(a[field] > b[field]) return 1;
+        return 0;
+      });
+    }
   }
 
 }

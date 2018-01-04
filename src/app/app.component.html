@@ -4,8 +4,12 @@
   </div>
 </nav>
 <div class="container">
-  <app-header></app-header>
-  <app-list [productList]="products"  (productsInitialList)="loadList()"
-            (reverseList)="reverseList()" (productsRemoveList)="removeList()"></app-list>
+  <app-header
+  [title]="headerTitle"></app-header>
+  <app-list [productList]="products"
+            (reverseList)="reverseList()"
+            (orderByFieldAsc)="orderData($event)"></app-list>
+  <button class="btn btn-success" (click)="loadList()">Load list</button>
+
 </div>
 
