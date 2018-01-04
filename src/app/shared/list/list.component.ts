@@ -8,20 +8,15 @@ import {Product} from './list.model';
 })
 export class ListComponent {
   @Input() productList: Array<Product>;
-  @Output() reverseList: EventEmitter<number> = new EventEmitter<number>();
-  @Output() productsInitialList: EventEmitter<number> = new EventEmitter<number>();
-  @Output() productsRemoveList: EventEmitter<number> = new EventEmitter<number>();
-
-  emitLoadEvent() {
-    this.productsInitialList.emit();
-  }
+  @Output() reverseList: EventEmitter<void> = new EventEmitter<void>();
+  @Output() orderByFieldAsc: EventEmitter<string> = new EventEmitter<string>();
 
   emitReverseEvent() {
     this.reverseList.emit();
   }
 
-  emitRemoveEvent() {
-    this.productsRemoveList.emit();
+  orderAscByField(field: string){
+    this.orderByFieldAsc.emit(field);
   }
 
 }
