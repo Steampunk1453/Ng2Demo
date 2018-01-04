@@ -28,9 +28,4 @@ export class DataService {
     return this.products;
   }
 
-  removeProducts(): Array<Product> {
-    this.products.length = 0;
-    return this.products;
-  }
-
 }
