@@ -1,0 +1,16 @@
+<table style="width:100%">
+  <tr>
+    <th style="cursor: pointer" (click)="orderAscByField('id')">ID</th>
+    <th style="cursor: pointer" (click)="orderAscByField('description')">Description</th>
+  </tr>
+  <tr *ngFor="let product of productList">
+    <td>{{product.id | producer}}</td>
+    <td>{{product.description}}</td>
+  </tr>
+</table>
+
+
+<button class="btn btn-info" (click)="emitReverseEvent()">Reverse list</button>
+
+
+
