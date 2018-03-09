@@ -18,11 +18,11 @@ export class DataService {
       },
       {
         id: 3,
-        description: 'Ripple',
+        description: 'Ada',
       },
       {
         id: 4,
-        description: 'Iota',
+        description: 'IOTA',
       }
     ];
     return this.products;
