@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import { Product } from './shared/list/list.model';
-import {DataService} from './shared/data.service';
+import {ProductService} from './shared/product/shared/product.service';
+import {DataService} from './shared/services/data.service';
 
 @Component({
   selector: 'app-root',
@@ -13,7 +14,8 @@ export class AppComponent {
 
   public products: Array<Product>;
 
-  constructor(private _dataService: DataService) {
+  constructor(private _productService: ProductService,
+              private _dataService: DataService) {
   }
 
   reverseList() {
@@ -21,7 +23,11 @@ export class AppComponent {
   }
 
   loadList() {
-    this.products = this._dataService.getProducts();
+    this._dataService.get('/api/products').subscribe((data) => {
+      if(data) {
+        this.products = data;
+      }
+    });
   }
 
   orderData(field: string) {
