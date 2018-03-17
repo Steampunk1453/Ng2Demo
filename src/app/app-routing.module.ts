@@ -7,7 +7,7 @@ import { RouterModule } from '@angular/router';
       {
         path: '',
         pathMatch: 'full',
-        redirectTo: '/products',
+        redirectTo: 'products',
       },
     ])
   ],
