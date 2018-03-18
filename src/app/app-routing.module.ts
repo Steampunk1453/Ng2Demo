@@ -6,8 +6,8 @@ import { RouterModule } from '@angular/router';
     RouterModule.forRoot([
       {
         path: '',
-        pathMatch: 'full',
-        redirectTo: 'products',
+        redirectTo: 'login',
+        pathMatch: 'full'
       },
     ])
   ],
