@@ -1,19 +1,10 @@
-import { NgModule } from '@angular/core'
-import { Routes, RouterModule } from '@angular/router'
-
-import { LoginComponent } from './login.component'
-import {PasswordChangeComponent} from "./password-change/password-change.component";
-import {PasswordRequestComponent} from "./password-request/password-request.component";
-import {LoginPanelComponent} from "./login-panel/login-panel.component";
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
+import {LoginComponent} from './login.component';
 
 const ROUTES: Routes = [{
     component: LoginComponent,
-    path: 'login',
-  children: [
-    { path: '', component: LoginPanelComponent},
-    { path: 'password/request', component: PasswordRequestComponent},
-    { path: 'password/change', component: PasswordChangeComponent},
-  ]
+    path: 'login'
 }]
 
 @NgModule({
@@ -23,4 +14,4 @@ const ROUTES: Routes = [{
         RouterModule.forChild(ROUTES)
     ]
 })
-export class LoginRouter {}
+export class LoginRoutingModule {}
