@@ -12,7 +12,7 @@ export class LoginComponent implements OnInit {
   public title = 'Welcome to the Cryptocurrencies Shop!';
 
   constructor(private _authService: AuthService,
-              private _router: Router,) { }
+              private _router: Router) { }
 
   ngOnInit() {
   }
