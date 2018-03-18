@@ -13,20 +13,8 @@ var products = [
   { "id": 1, "description": "Bitcoin" },
   { "id": 2, "description": "Ether" },
   { "id": 3, "description": "ADA" },
-  { "id": 4, "description": "IOTA" },
+  { "id": 4, "description": "MIOTA" },
   { "id": 5, "description": "NEO" }
-];
-
-var books = [
-  { "title": "Hitchhiker's Guide to the Galaxy" },
-  { "title": "The Fellowship of the Ring" },
-  { "title": "Moby Dick" }
-];
-
-var movies = [
-  { "title": "Ghostbusters" },
-  { "title": "Star Wars" },
-  { "title": "Batman Begins" }
 ];
 
 // the "index" route, which serves the Angular app
@@ -34,22 +22,21 @@ app.get('/', function (req, res) {
     res.sendFile(path.join(__dirname,'/dist/index.html'))
 });
 
-// the GET "books" API endpoint
-app.get('/api/books', function (req, res) {
-    res.send(books);
-});
-
-// the GET "movies" API endpoint
-app.get('/api/movies', function (req, res) {
-    res.send(movies);
-});
-
 // the GET "products" API endpoint
 app.get('/api/products', function (req, res) {
     console.log("GET products");
-
-    // This is a very simple API endpoint. It returns the current value of the "foods" array.
+    // This is a very simple API endpoint. It returns the current value of the "products" array.
     res.send(products);
+
+});
+
+// the GET "products" API endpoint
+app.get('/api/product/:id', function (req, res) {
+  console.log("GET product: " + req.params.id);
+  let id = req.params.id;
+  let f = products.find(x => x.id == id);
+  // This is a very simple API endpoint. It returns the current value of the "products" array.
+  res.send(f);
 
 });
 
@@ -60,64 +47,46 @@ app.post('/api/product', function (req, res) {
 
     // This example uses Express because it is easy to install and run.
     // You could write a different back-end app in PHP, Python, Ruby, .NET, etc.
-
-    console.log("POST product: " + req.body.name);
-
+    console.log("POST product: " + req.body.description);
     // calculate the next ID
     let id = 1;
     if (products.length > 0) {
         let maximum = Math.max.apply(Math, products.map(function (f) { return f.id; }));
         id = maximum + 1;
     }
-
     // build the new product object
-    let new_product = {"id": id, "name": req.body.name};
-
+    let new_product = {"id": id, "description": req.body.description};
     // "save" the data by adding it to the "products" array in memory
     products.push(new_product);
-
     // In the real world, you would put code here to save the data to a
     // database or another type of storage.
-
     // When we're done, it's nice to return the newly created object to the caller.
     res.send(new_product);
-
 });
 
 // PUT endpoint for editing product
 app.put('/api/product/:id', function (req, res) {
-
     console.log("PUT product: " + req.params.id);
-
     // read the ID from the query string
     let id = req.params.id;
-
-    // find the requested food in the array
+    // find the requested product in the array
     let f = products.find(x => x.id == id);
-
     // write the new name to the data storage
-    f.name = req.body.name;
-
+    f.description = req.body.description;
     // send a copy of the modified object back to the caller
     res.send(f);
-
 });
 
-// DELETE endpoint for deleting food
+// DELETE endpoint for deleting product
 app.delete('/api/product/:id', function (req, res) {
-
     console.log("DELETE product: " + req.params.id);
-
     // read the ID from the query string
     // (DELETE requests don't have a body)
     let id = req.params.id;
-
     // read the object from the data (so we have it later)
-    let f = foods.find(x => x.id == id);
-
+    let f = products.find(x => x.id == id);
     // remove it from the data
-    products = foods.filter(x => x.id != id);
-
+    products = products.filter(x => x.id != id);
     // send back the object we deleted, in case the caller wants to look at what was there
     res.send(f);
 });
