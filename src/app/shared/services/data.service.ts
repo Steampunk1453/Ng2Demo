@@ -1,16 +1,31 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
-import {Product} from '../../product/list/list.model';
+import {Store} from "@ngrx/store";
+import {INCREMENT} from "../counter";
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
 
+interface AppState {
+  counter: number;
+}
+
+
 @Injectable()
 export class DataService {
 
-  constructor(private http: HttpClient) {}
+  counter: Observable<number>;
+
+  constructor(private http: HttpClient,
+              private store: Store<AppState>) {
+    this.counter = store.select('counter');
+  }
+
+  increment(){
+    this.store.dispatch({ type: INCREMENT });
+  }
 
   get(url: string): Observable<any>  {
     return this.http.get(url);

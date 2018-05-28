@@ -3,6 +3,7 @@ import {SharedModule} from '../shared/shared.module';
 import {ProductComponent} from './product.component';
 import {ProductRoutingModule} from './product-routing.module';
 import {NgModule} from '@angular/core';
+import {ProductService} from "./shared/product.service";
 
 @NgModule({
   imports: [
@@ -16,6 +17,6 @@ import {NgModule} from '@angular/core';
   exports:[
     ProductComponent
   ],
-  providers: []
+  providers: [ProductService]
 })
 export class ProductModule { }

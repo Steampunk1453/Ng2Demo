@@ -5,10 +5,12 @@ import {AppComponent} from './app.component';
 import {SharedModule} from './shared/shared.module';
 import {AppRoutingModule} from './app-routing.module';
 import {HttpClientModule} from '@angular/common/http';
-import {DataService} from './shared/services/data.service';
-import { DetailComponent } from './product/detail/detail.component';
+import {DetailComponent} from './product/detail/detail.component';
 import {ProductModule} from './product/product.module';
 import {LoginModule} from './login/login.module';
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {counterReducer} from "./shared/counter";
+import {StoreModule} from "@ngrx/store";
 
 @NgModule({
   declarations: [
@@ -21,9 +23,12 @@ import {LoginModule} from './login/login.module';
     AppRoutingModule,
     HttpClientModule,
     ProductModule,
-    LoginModule
+    LoginModule,
+    FormsModule,
+    ReactiveFormsModule,
+    StoreModule.provideStore({ counter: counterReducer })
   ],
-  providers: [DataService],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

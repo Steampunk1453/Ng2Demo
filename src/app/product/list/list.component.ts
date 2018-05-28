@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Product} from './list.model';
 import {DataService} from '../../shared/services/data.service';
 import {ProductService} from '../shared/product.service';
@@ -9,14 +9,19 @@ import {Router} from '@angular/router';
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.css']
 })
-export class ListComponent {
+export class ListComponent implements OnInit {
   public products: Array<Product>;
   public product: Product = {} as Product;
   public visibleForm: boolean = false;
+  message:string;
 
   constructor(private _productService: ProductService,
               private _dataService: DataService,
               private _router: Router) {
+  }
+
+  ngOnInit() {
+    this._productService.currentMessage.subscribe(message => this.message = message)
   }
 
   reverseList() {
@@ -44,6 +49,7 @@ export class ListComponent {
 
   detailProduct() {
     let url: string = 'product/detail/'
+    this._dataService.increment();
     this._router.navigate([url + this.products[1].id]);
   }
 
@@ -71,6 +77,9 @@ export class ListComponent {
     });
   }
 
+  newMessage() {
+    this._productService.changeMessage("Hello from Sibling")
+  }
 
 }
 
