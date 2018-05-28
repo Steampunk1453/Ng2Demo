@@ -1,11 +1,10 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {FormsModule} from '@angular/forms';
 
-import { HeaderComponent } from './header/header.component';
-import { ListComponent } from '../product/list/list.component';
+import {HeaderComponent} from './header/header.component';
+import {ListComponent} from '../product/list/list.component';
 import {ProducerPipe} from './product.pipe';
-import {ProductService} from '../product/shared/product.service';
 import {DataService} from './services/data.service';
 import {AuthService} from './services/auth.service';
 
@@ -26,6 +25,6 @@ import {AuthService} from './services/auth.service';
     CommonModule,
     FormsModule
   ],
-  providers: [ProductService, DataService, AuthService],
+  providers: [DataService, AuthService],
 })
 export class SharedModule { }

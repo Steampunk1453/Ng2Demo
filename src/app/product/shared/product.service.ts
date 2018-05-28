@@ -1,10 +1,18 @@
-import {Injectable} from '@angular/core';
+import {EventEmitter, Injectable, Output} from '@angular/core';
 import {Product} from '../list/list.model';
+import {BehaviorSubject} from "rxjs/BehaviorSubject";
 
 @Injectable()
 export class ProductService {
 
   public products: Array<Product>;
+
+  private messageSource = new BehaviorSubject("default message");
+  currentMessage = this.messageSource.asObservable();
+
+  changeMessage(message: string) {
+    this.messageSource.next(message)
+  }
 
   loadProducts(): Array<Product> {
     this.products = [
