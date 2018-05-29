@@ -1,0 +1,32 @@
+<table style="width:100%">
+  <tr>
+    <th style="cursor: pointer" (click)="orderData('id')">ID</th>
+    <th style="cursor: pointer" (click)="orderData('description')">Description</th>
+  </tr>
+  <tr *ngFor="let product of products">
+    <td>{{product.id | producer}}</td>
+    <td>{{product.description}}</td>
+  </tr>
+</table>
+<br><br>
+<div *ngIf="visibleForm">
+  <p>Write id and product description for add, update and remove products:</p>
+  <div class="form-group">
+  <label for="id">Id</label>
+  <input type="text" class="form-horizontal" id="id" [(ngModel)]='product.id' required>
+  <label for="product">Product</label>
+  <input type="text" class="form-horizontal" id="product" [(ngModel)]='product.description' required>
+  </div>
+</div>
+<div *ngIf="!visibleForm">
+</div>
+<br><br>
+<button class="btn btn-info" (click)="reverseList()">Reverse list</button>
+<button class="btn btn-success" (click)="loadList()">Load list</button>
+<button class="btn btn-warning" (click)="detailProduct()">Detail product</button>
+<button class="btn btn-info" (click)="addProduct()">Add product</button>
+<button class="btn btn-success" (click)="updateProduct()">Update product</button>
+<button class="btn btn-danger" (click)="deleteProduct()">Remove product</button>
+
+
+

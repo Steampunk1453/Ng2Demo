@@ -1,12 +1,12 @@
 import {Injectable} from '@angular/core';
-import {Product} from './list/list.model';
+import {Product} from '../list/list.model';
 
 @Injectable()
-export class DataService {
+export class ProductService {
 
   public products: Array<Product>;
 
-  getProducts(): Array<Product> {
+  loadProducts(): Array<Product> {
     this.products = [
       {
         id: 1,
@@ -18,7 +18,7 @@ export class DataService {
       },
       {
         id: 3,
-        description: 'Ada',
+        description: 'ADA',
       },
       {
         id: 4,
