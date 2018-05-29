@@ -15,9 +15,7 @@ import {Store} from "@ngrx/store";
 })
 export class DetailComponent implements OnInit {
   private id: number;
-  private product: Product = {} as Product;
   detailForm: FormGroup;
-  message: string;
 
   constructor(private _route: ActivatedRoute,
               private _dataService: DataService,
@@ -33,9 +31,12 @@ export class DetailComponent implements OnInit {
       this.id = params['id']
     });
     this.loadProduct(this.id);
+
     this._store.subscribe(val => {
-      console.log('***SUBSCRIBER TWO***', val);
+      console.log('***SUBSCRIBER***', val);
     });
+
+    this.putElementHeader();
   }
   createForm() {
     this.detailForm = this.fb.group({
@@ -47,10 +48,13 @@ export class DetailComponent implements OnInit {
   loadProduct(id: number) {
     this._dataService.getById('/api/product/', id).subscribe((data) => {
       if(data) {
-        this.product.id = data.id;
-        this.product.description = data.description;
+        this.detailForm.setValue({id: data.id, product: data.description});
       }
     });
+  }
+
+  putElementHeader() {
+    this.productService.toggle()
   }
 
 }

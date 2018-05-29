@@ -21,7 +21,6 @@ export class ListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this._productService.currentMessage.subscribe(message => this.message = message)
   }
 
   reverseList() {
@@ -35,6 +34,7 @@ export class ListComponent implements OnInit {
         this.visibleForm = true;
       }
     });
+    this.putElementHeader();
   }
 
   orderData(field: string) {
@@ -77,8 +77,8 @@ export class ListComponent implements OnInit {
     });
   }
 
-  newMessage() {
-    this._productService.changeMessage("Hello from Sibling")
+  putElementHeader() {
+    this._productService.toggle()
   }
 
 }

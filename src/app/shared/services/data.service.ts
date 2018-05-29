@@ -20,6 +20,7 @@ export class DataService {
 
   constructor(private http: HttpClient,
               private store: Store<AppState>) {
+
     this.counter = store.select('counter');
   }
 

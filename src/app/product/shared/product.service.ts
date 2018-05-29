@@ -7,11 +7,13 @@ export class ProductService {
 
   public products: Array<Product>;
 
-  private messageSource = new BehaviorSubject("default message");
-  currentMessage = this.messageSource.asObservable();
+  isVisible = false;
 
-  changeMessage(message: string) {
-    this.messageSource.next(message)
+  @Output() change: EventEmitter<boolean> = new EventEmitter();
+
+  toggle() {
+    this.isVisible = !this.isVisible;
+    this.change.emit(this.isVisible);
   }
 
   loadProducts(): Array<Product> {
