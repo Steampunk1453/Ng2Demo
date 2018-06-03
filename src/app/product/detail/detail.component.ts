@@ -32,8 +32,8 @@ export class DetailComponent implements OnInit {
     });
     this.loadProduct(this.id);
 
-    this._store.subscribe(val => {
-      console.log('***SUBSCRIBER***', val);
+    this._store.subscribe(data => {
+      console.log('Store test: ', data);
     });
 
     this.putElementHeader();

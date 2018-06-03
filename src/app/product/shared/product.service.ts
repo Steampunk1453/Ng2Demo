@@ -1,6 +1,5 @@
 import {EventEmitter, Injectable, Output} from '@angular/core';
 import {Product} from '../list/list.model';
-import {BehaviorSubject} from "rxjs/BehaviorSubject";
 
 @Injectable()
 export class ProductService {
