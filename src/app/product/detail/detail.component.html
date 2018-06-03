@@ -2,7 +2,13 @@
   <form [formGroup]="detailForm" (ngSubmit)="onSubmit()" novalidate>
     <label for="id">Id</label>
     <input type="text" class="form-horizontal" id="id" formControlName="id">
-    <label for="product">Product</label>
-    <input type="text" class="form-horizontal" id="product" formControlName="product">
+    <label for="description">Description</label>
+    <input type="text" class="form-horizontal" id="description" formControlName="description">
+    <label for="prize">Prize</label>
+    <input type="text" class="form-horizontal" id="prize" formControlName="prize">
+    <label for="types">Prize</label>
+    <select id="types" formControlName="type">
+      <option *ngFor="let type of types" [ngValue]="type">{{ type }}</option>
+    </select>
   </form>
 </div>

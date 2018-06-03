@@ -47,7 +47,7 @@ export class ListComponent implements OnInit {
     }
   }
 
-  detailProduct() {
+  registerProduct() {
     let url: string = 'product/detail/'
     this._dataService.increment();
     this._router.navigate([url + this.products[1].id]);

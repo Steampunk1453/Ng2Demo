@@ -16,6 +16,7 @@ import {Store} from "@ngrx/store";
 export class DetailComponent implements OnInit {
   private id: number;
   detailForm: FormGroup;
+  types: string[] = ['USA', 'UK', 'Canada'];
 
   constructor(private _route: ActivatedRoute,
               private _dataService: DataService,
@@ -30,7 +31,7 @@ export class DetailComponent implements OnInit {
     this._route.params.subscribe(params => {
       this.id = params['id']
     });
-    this.loadProduct(this.id);
+    // this.loadProduct(this.id);
 
     this._store.subscribe(data => {
       console.log('Store test: ', data);
@@ -41,7 +42,9 @@ export class DetailComponent implements OnInit {
   createForm() {
     this.detailForm = this.fb.group({
       id: ['', Validators.required ],
-      product: ['', Validators.required ],
+      description: ['', Validators.required, Validators.minLength(100)],
+      prize: ['', Validators.required ],
+      type: ['', Validators.required ]
     });
   }
 
