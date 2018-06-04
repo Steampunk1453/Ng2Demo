@@ -15,8 +15,9 @@ import {Store} from "@ngrx/store";
 })
 export class DetailComponent implements OnInit {
   private id: number;
-  detailForm: FormGroup;
-  types: string[] = ['USA', 'UK', 'Canada'];
+  private detailForm: FormGroup;
+  private types: string[];
+  private formSubmitAttempt: boolean;
 
   constructor(private _route: ActivatedRoute,
               private _dataService: DataService,
@@ -26,7 +27,7 @@ export class DetailComponent implements OnInit {
 
     this.createForm();
   }
-
+1
   ngOnInit() {
     this._route.params.subscribe(params => {
       this.id = params['id']
@@ -36,17 +37,39 @@ export class DetailComponent implements OnInit {
     this._store.subscribe(data => {
       console.log('Store test: ', data);
     });
-
+    this._dataService.get('/api/products').subscribe((data) => {
+      if(data) {
+        this.types = data;
+      }
+    });
     this.putElementHeader();
   }
+
   createForm() {
     this.detailForm = this.fb.group({
       id: ['', Validators.required ],
-      description: ['', Validators.required, Validators.minLength(100)],
-      prize: ['', Validators.required ],
+      description: ['', Validators.required, Validators.minLength(4)],
+      prize: ['', Validators.required, Validators.pattern('/^[0-9]{0,}$/')],
       type: ['', Validators.required ]
     });
   }
+
+  onSubmit() {
+    this.formSubmitAttempt = true;
+    if (this.detailForm.valid) {
+      console.log('form submitted');
+    }
+  }
+
+  hasErrors(form: FormGroup, field: string) {
+    return (!form.get(field).valid && form.get(field).touched) ||
+      (form.get(field).untouched && this.formSubmitAttempt);
+  }
+
+  getError(form: FormGroup, field: string, validator: string) {
+    return form.get(field).errors ? form.get(field).errors[validator] : false;
+  }
+
 
   loadProduct(id: number) {
     this._dataService.getById('/api/product/', id).subscribe((data) => {

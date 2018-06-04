@@ -13,7 +13,6 @@ export class ListComponent implements OnInit {
   public products: Array<Product>;
   public product: Product = {} as Product;
   public visibleForm: boolean = false;
-  message:string;
 
   constructor(private _productService: ProductService,
               private _dataService: DataService,
