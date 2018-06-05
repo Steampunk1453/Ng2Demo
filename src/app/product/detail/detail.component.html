@@ -1,14 +1,41 @@
 <div class="form-group">
-  <form [formGroup]="detailForm" (ngSubmit)="onSubmit()" novalidate>
+  <form [formGroup]="detailForm">
     <label for="id">Id</label>
     <input type="text" class="form-horizontal" id="id" formControlName="id">
+    <div *ngIf="hasErrors(detailForm, 'id')" class="form-error">
+      <p *ngIf="getError(detailForm, 'id', 'required')">
+        Campo requerido
+      </p>
+    </div>
     <label for="description">Description</label>
     <input type="text" class="form-horizontal" id="description" formControlName="description">
+    <div *ngIf="hasErrors(detailForm, 'description')" class="form-error">
+      <p *ngIf="getError(detailForm, 'description', 'required')">
+        Campo requerido
+      </p>
+      <p *ngIf="getError(detailForm, 'description', 'minLength')">
+        Formato incorrecto
+      </p>
+    </div>
     <label for="prize">Prize</label>
     <input type="text" class="form-horizontal" id="prize" formControlName="prize">
-    <label for="types">Prize</label>
+    <div *ngIf="hasErrors(detailForm, 'prize')" class="form-error">
+      <p *ngIf="getError(detailForm, 'prize', 'required')">
+        Campo requerido
+      </p>
+      <p *ngIf="getError(detailForm, 'prize', 'pattern')">
+        Formato incorrecto
+      </p>
+    </div>
+    <label for="types">Tipos de producto</label>
     <select id="types" formControlName="type">
-      <option *ngFor="let type of types" [ngValue]="type">{{ type }}</option>
+      <option *ngFor="let type of types" [ngValue]="type">{{ type.description }}</option>
     </select>
+    <div *ngIf="hasErrors(detailForm, 'type')" class="form-error">
+      <p *ngIf="getError(detailForm, 'type', 'required')">
+        Campo requerido
+      </p>
+    </div>
+    <button class="btn btn-primary" (click)="onSubmit()">Submit</button>
   </form>
 </div>

@@ -26,7 +26,9 @@ export class DetailComponent implements OnInit {
   }
   private subscription: Subscription;
   private id: number;
-  detailForm: FormGroup;
+  private detailForm: FormGroup;
+  private types: string[];
+  private formSubmitAttempt: boolean;
 
   constructor(private _route: ActivatedRoute,
               private _dataService: DataService,
@@ -46,13 +48,18 @@ export class DetailComponent implements OnInit {
     this._store.subscribe(data => {
       console.log('Store test: ', data);
     });
-
+    this._dataService.get('/api/products').subscribe((data) => {
+      if(data) {
+        this.types = data;
+      }
+    });
     this.putElementHeader();
 
     this.classVar = 'p-5';
     this.border = '1x dashed black';
     Observable.timer(0, 10).subscribe(data => {this.color ='#' + (data % 1000)});
   }
+
   createForm() {
     this.detailForm = this.fb.group({
       id: ['', Validators.required ],
@@ -61,6 +68,23 @@ export class DetailComponent implements OnInit {
       type: ['', Validators.required ]
     });
   }
+
+  onSubmit() {
+    this.formSubmitAttempt = true;
+    if (this.detailForm.valid) {
+      console.log('form submitted');
+    }
+  }
+
+  hasErrors(form: FormGroup, field: string) {
+    return (!form.get(field).valid && form.get(field).touched) ||
+      (form.get(field).untouched && this.formSubmitAttempt);
+  }
+
+  getError(form: FormGroup, field: string, validator: string) {
+    return form.get(field).errors ? form.get(field).errors[validator] : false;
+  }
+
 
   loadProduct(id: number) {
     this._dataService.getById('/api/product/', id).subscribe((data) => {
