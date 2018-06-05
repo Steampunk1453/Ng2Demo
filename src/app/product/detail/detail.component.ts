@@ -17,13 +17,14 @@ export class DetailComponent implements OnInit {
   @HostBinding('style.border') border: string;
   @HostBinding('style.background-color') color: string;
 
-  @HostListener('keydown')
-  manageKeyDown(evt: KeyboardEvent){
-    console.log(evt);
-    if(evt.key === 'q') {
-      this.subscription.unsubscribe();
-    }
-  }
+  // @HostListener('keydown')
+  // manageKeyDown(evt: KeyboardEvent){
+  //   console.log(evt);
+  //   if(evt.key === 'q') {
+  //     this.subscription.unsubscribe();
+  //   }
+  // }
+
   private subscription: Subscription;
   private id: number;
   private detailForm: FormGroup;
@@ -57,14 +58,14 @@ export class DetailComponent implements OnInit {
 
     this.classVar = 'p-5';
     this.border = '1x dashed black';
-    Observable.timer(0, 10).subscribe(data => {this.color ='#' + (data % 1000)});
+    Observable.create(0, 10).subscribe(data => {this.color ='#' + (data % 1000)});
   }
 
   createForm() {
     this.detailForm = this.fb.group({
-      id: ['', Validators.required ],
-      description: ['', Validators.required, Validators.minLength(100)],
-      prize: ['', Validators.required ],
+      id: ['', Validators.required],
+      description: ['', [Validators.required, Validators.minLength(5)]],
+      prize: ['', [Validators.required, Validators.pattern(/^-?(0|[1-9]\d*)?$/)]],
       type: ['', Validators.required ]
     });
   }
