@@ -1,12 +1,11 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, HostBinding, HostListener, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {DataService} from '../../shared/services/data.service';
-import {Product} from '../list/list.model';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import {ProductService} from "../shared/product.service";
-import {ListComponent} from "../list/list.component";
-import {Observable} from "rxjs/Observable";
-import {Store} from "@ngrx/store";
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {ProductService} from '../shared/product.service';
+import {Observable} from 'rxjs/Observable';
+import {Store} from '@ngrx/store';
+import {Subscription} from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-detail',
@@ -14,9 +13,20 @@ import {Store} from "@ngrx/store";
   styleUrls: ['./detail.component.css']
 })
 export class DetailComponent implements OnInit {
+  @HostBinding('class') classVar: string;
+  @HostBinding('style.border') border: string;
+  @HostBinding('style.background-color') color: string;
+
+  @HostListener('keydown')
+  manageKeyDown(evt: KeyboardEvent){
+    console.log(evt);
+    if(evt.key === 'q') {
+      this.subscription.unsubscribe();
+    }
+  }
+  private subscription: Subscription;
   private id: number;
   detailForm: FormGroup;
-  types: string[] = ['USA', 'UK', 'Canada'];
 
   constructor(private _route: ActivatedRoute,
               private _dataService: DataService,
@@ -38,6 +48,10 @@ export class DetailComponent implements OnInit {
     });
 
     this.putElementHeader();
+
+    this.classVar = 'p-5';
+    this.border = '1x dashed black';
+    Observable.timer(0, 10).subscribe(data => {this.color ='#' + (data % 1000)});
   }
   createForm() {
     this.detailForm = this.fb.group({
