@@ -13,23 +13,13 @@ import {Subscription} from 'rxjs/Subscription';
   styleUrls: ['./detail.component.css']
 })
 export class DetailComponent implements OnInit {
-  @HostBinding('class') classVar: string;
-  @HostBinding('style.border') border: string;
-  @HostBinding('style.background-color') color: string;
-
-  // @HostListener('keydown')
-  // manageKeyDown(evt: KeyboardEvent){
-  //   console.log(evt);
-  //   if(evt.key === 'q') {
-  //     this.subscription.unsubscribe();
-  //   }
-  // }
 
   private subscription: Subscription;
   private id: number;
   private detailForm: FormGroup;
   private types: string[];
   private formSubmitAttempt: boolean;
+  private isSave: boolean;
 
   constructor(private _route: ActivatedRoute,
               private _dataService: DataService,
@@ -55,10 +45,6 @@ export class DetailComponent implements OnInit {
       }
     });
     this.putElementHeader();
-
-    this.classVar = 'p-5';
-    this.border = '1x dashed black';
-    Observable.create(0, 10).subscribe(data => {this.color ='#' + (data % 1000)});
   }
 
   createForm() {
@@ -66,14 +52,19 @@ export class DetailComponent implements OnInit {
       id: ['', Validators.required],
       description: ['', [Validators.required, Validators.minLength(5)]],
       prize: ['', [Validators.required, Validators.pattern(/^-?(0|[1-9]\d*)?$/)]],
-      type: ['', Validators.required ]
+      type: ['', Validators.required]
     });
   }
 
   onSubmit() {
     this.formSubmitAttempt = true;
     if (this.detailForm.valid) {
-      console.log('form submitted');
+      this._dataService.post('/api/product', this.detailForm.value).subscribe((data) => {
+        if(data) {
+          this.isSave = true;
+        }
+      });
+
     }
   }
 
