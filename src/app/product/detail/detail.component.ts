@@ -1,5 +1,5 @@
 import {Component, HostBinding, HostListener, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {DataService} from '../../shared/services/data.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ProductService} from '../shared/product.service';
@@ -35,7 +35,8 @@ export class DetailComponent implements OnInit {
               private _dataService: DataService,
               private fb: FormBuilder,
               private productService: ProductService,
-              private _store: Store<Observable<any>>) {
+              private _store: Store<Observable<any>>,
+              private _router: Router) {
 
     this.createForm();
   }
