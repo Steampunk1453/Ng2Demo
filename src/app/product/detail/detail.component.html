@@ -1,10 +1,11 @@
 <div *ngIf="isSave">
   <span>Producto guardado</span>
 </div>
+<main class="container-fluid">
+  <section class="container">
   <form [formGroup]="detailForm" (ngSubmit)="onSubmit()" novalidate>
-
-    <div class="form-group">
-      <label for="id">Id</label>
+    <div class="col mx-5 pb-3 form-row">
+      <label for="id" class="input-label col-3">Id</label>
       <input type="text" class="form-control" id="id" formControlName="id">
       <div *ngIf="hasErrors(detailForm, 'id')" class="form-error">
         <p *ngIf="getError(detailForm, 'id', 'required')">
@@ -34,7 +35,7 @@
           </p>
         </div>
         <label for="types">Tipos de producto</label>
-        <select id="types" class="form-control" formControlName="type">
+        <select id="types" class="form-control mt-2 col" formControlName="type">
           <option *ngFor="let type of types" [ngValue]="type">{{ type.description }}</option>
         </select>
         <div *ngIf="hasErrors(detailForm, 'type')" class="form-error">
@@ -43,5 +44,7 @@
           </p>
         </div>
       </div>
-      <button class="btn btn-primary" type="submit">Guardar</button>
+      <button class="btn btn-primary col-auto mx-5" type="submit">Guardar</button>
   </form>
+  </section>
+</main>

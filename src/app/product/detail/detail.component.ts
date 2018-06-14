@@ -63,6 +63,8 @@ export class DetailComponent implements OnInit {
       this._dataService.post('/api/product', this.detailForm.value).subscribe((data) => {
         if(data) {
           this.isSave = true;
+          let url : string = 'product/list';
+          this._router.navigate([url]);
         }
       });
 

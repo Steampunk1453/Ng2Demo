@@ -18,7 +18,7 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    let url : string = 'product/list'
+    let url : string = 'product/list';
     this._authService.login();
     if(this._authService.checkLogged()) {
       this._router.navigate([url]);
